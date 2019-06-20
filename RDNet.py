@@ -17,48 +17,89 @@ __credits__ = """"""
 #    All rights reserved.
 #    BSD license.
 
-from networkx import *
+import networkx as nx
 import sys
-import matplotlib.pyplot as plt
 import numpy as np
-from scipy.sparse import csr_matrix
+import matplotlib.pyplot as plt
 
-
+### NETWORK VARIABLES ###
 n=10 # 10 nodes
 m=20 # 20 edges
 
-G=gnm_random_graph(n,m)
+### RD SYSTEM VARIABLES ###
+d_u = 1
+d_v = 1
+a = 1
+b = -2
+c = 2
+d = -2
+I = np.identity(n)
 
-# some properties
+### GENERATE RANDOM GRAPH ###
+G=nx.gnm_random_graph(n,m)
+
+### SHOW PROPERTIES ###
 print("node degree clustering")
-for v in nodes(G):
-    print('%s %d %f' % (v,degree(G,v),clustering(G,v)))
+for v in nx.nodes(G):
+    print('%s %d %f' % (v,nx.degree(G,v),nx.clustering(G,v)))
 
 k_sum = 0
-for i in nodes(G):
-    k_sum += degree(G,i)
+for i in nx.nodes(G):
+    k_sum += nx.degree(G,i)
 print("k_sum = ", k_sum)
 
 L_sum = 0
-for j in range(len(laplacian_matrix(G).toarray()[:,0])):
-    L_sum += laplacian_matrix(G).toarray()[j][j]
+for j in range(len(nx.laplacian_matrix(G).toarray()[:,0])):
+    L_sum += nx.laplacian_matrix(G).toarray()[j][j]
 print("L_sum = ", L_sum)
     
-    
-
-# print the adjacency list to terminal
+### PRINT ADJACENCY LIST ###
 try:
-    write_adjlist(G,sys.stdout)
+    nx.write_adjlist(G,sys.stdout)
 except TypeError: # Python 3.x
-    write_adjlist(G,sys.stdout.buffer)
-    
-nx.draw_networkx(G)
+    nx.write_adjlist(G,sys.stdout.buffer)
 
+### PLOT NETWORK ###    
+nx.draw_networkx(G)
+plt.show()
+plt.close()
+### PRINT ADJACENCY AND LAPLACIAN MATRICES ###
 print("ADJACENCY MATRIX OF G:")
-print(adjacency_matrix(G).toarray())
+print(nx.adjacency_matrix(G).toarray())
 
 print("LAPLACIAN MATRIX OF G:")
-print(laplacian_matrix(G).toarray())
+print(nx.laplacian_matrix(G).toarray())
 
-#plt.imshow(laplacian_matrix(G).toarray())
-#plt.show()
+### CALCULATE EIGENVALUES OF LAPLACIAN (DIAGONALIZATION) ###
+w,v = np.linalg.eig(nx.laplacian_matrix(G).toarray())
+#print("w: ", w)
+#print("v: ", v)
+
+### DIAGONALIZED LAPLACIAN ###
+Lambda = np.diag(w)
+
+### REACTIVE LAPLACIAN ###
+A = a * I - d_u * Lambda
+B = b * I
+C = c * I
+D = d * I - d_v * Lambda
+
+Gamma = np.block([
+        [A, B], 
+        [C, D]
+        ])
+
+y,z = np.linalg.eig(Gamma)
+Gamma_eig = np.real(y)
+
+Phase_Plane = []
+if (Gamma_eig>0).all() == False:
+    Phase_Plane.append(0)
+else:
+    Phase_Plane.append(1)
+
+print("Stability: ", Phase_Plane)
+
+plt.imshow(Gamma);
+plt.colorbar()
+plt.show()
