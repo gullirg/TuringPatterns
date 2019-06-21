@@ -67,16 +67,16 @@ for d_u in np.arange(0, 0.05, 0.001):
                 check.append(1)
         
         if not check:
-            temp.append(1)
+            temp.append(0)
             
         else:
-            temp.append(0)
+            temp.append(1)
             
     
     Phase_Plane.append(temp)
     
 
-matrix = np.matrix(Phase_Plane)
+matrix = np.transpose(np.matrix(Phase_Plane))
 
 
 print(matrix)
@@ -91,4 +91,4 @@ fig, ax = plt.subplots()
 min_val, max_val = 0, len(temp)
 
 
-ax.matshow(matrix, cmap=plt.cm.Blues)
+ax.matshow(matrix, cmap=plt.cm.Blues, origin = 'lower')
