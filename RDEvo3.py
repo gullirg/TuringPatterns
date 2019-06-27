@@ -5,7 +5,8 @@ Created on Wed Jun 26 13:40:19 2019
 
 @author: gulli
 """
-
+# %matplotlib qt
+# %matplotlib inline
 import numpy as np
 from matplotlib import pyplot as plt
 import networkx as nx
@@ -22,8 +23,8 @@ a = 1
 b = -2
 c = 2
 d = -2
-d_u = 0.1
-d_v = 0.9
+d_u = 0.2
+d_v = 0.8
 
 I = np.identity(n)
 
@@ -39,7 +40,8 @@ t0 = 0
 u0 = np.zeros([n])
 v0 = np.zeros([n])
 tf = 10
-deltat = (tf - t0) / (n-1)
+#deltat = (tf - t0) / (n-1)
+deltat =0.001
 
 ### DEFINING t-VALUES ###
 t = np.linspace(t0,tf,n)
@@ -58,14 +60,14 @@ for i in range(1, tf):
 
 #for i in range(n): print(t[ i ] ,u[ i ])
 
-#plt.figure(figsize=(16.0, 14.0))
-plt.plot(u, v, linestyle='--', marker='o', markersize=0.7, linewidth=0.2)
-plt.title(r'\textit{Variance of concetrations per single node}', size = 'xx-large')
+plt.figure(figsize=(16.0, 14.0))
+plt.plot(u.T, v.T, linestyle='--', marker='o', markersize=0.7, linewidth=0.2)
+plt.title(r'\textit{Variance of concetrations per single node - dt = 0.001}', size = 'xx-large')
 plt.gca().title.set_position([.5, 1.05])
 plt.xlabel(r'\textit{u}', size = 'xx-large')
 plt.ylabel(r'\textit{v}', size = 'xx-large')
 
-#plt.savefig('/Users/gulli/Google Drive/KURF/NodeEvo.png')
+#plt.savefig('/Users/gulli/Google Drive/KURF/NodeEvo_001.png')
 
 plt.tight_layout()
 plt.show()
