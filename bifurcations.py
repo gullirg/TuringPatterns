@@ -28,8 +28,8 @@ import matplotlib.pyplot as plt
 
 
 ### NETWORK VARIABLES ###
-n=100 # nodes
-m=200 # edges
+n=10 # nodes
+m=20 # edges
 
 ### REACTIVE FUNCTION VARIABLES ###
 a = 1
@@ -52,10 +52,10 @@ Lambda = np.diag(w)
 x_u= []
 y_v = []
 Phase_Plane = []
-for d_u in np.arange(0, 0.05, 0.001):
+for d_u in np.linspace(0,0.05,50):
     x_u.append(d_u)
     temp = []
-    for d_v in np.arange(0, 0.5, 0.01):
+    for d_v in np.linspace(0,0.5,50):
         y_v.append(d_v)
 
 
@@ -105,7 +105,7 @@ y = np.arange(0, 50, 1)
 xx, yy = np.meshgrid(x, y, sparse=True)
 z = matrix
 
-h = plt.contourf(x,y,np.log(z), cmap = plt.cm.bone_r)
+h = plt.contourf(x,y,np.log(z), cmap = 'bone_r')
 plt.colorbar()
 plt.title(r'\textit{Stable-unstable regions of the homogenous steady state}', size = 'xx-large')
 plt.gca().title.set_position([.5, 1.05])

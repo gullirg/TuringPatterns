@@ -10,13 +10,10 @@ Created on Wed Jun 26 13:40:19 2019
 import numpy as np
 from matplotlib import pyplot as plt
 import networkx as nx
-import matplotlib as mpl
-mpl.rcParams['text.usetex'] = True
-mpl.rcParams['text.latex.preamble'] = [r'\usepackage{amsmath}'] #for \text command
 
 ### NETWORK VARIABLES ###
-n=100 # 10 nodes
-m=200 # 20 edges
+n_nodes=1000
+m_edges=200 
 
 ### REACTIVE FUNCTION VARIABLES ###
 a = 1
@@ -26,48 +23,49 @@ d = -2
 d_u = 0.2
 d_v = 0.8
 
-I = np.identity(n)
-
 ### GENERATE RANDOM GRAPH ###
-G=nx.gnm_random_graph(n,m)
+graphObject = nx.gnm_random_graph(n_nodes,m_edges)
 
 ### Laplacian matrix ###
-L = nx.laplacian_matrix(G)
+laplacian_matrix = nx.laplacian_matrix(graphObject)
 
 ### DEFINING BASIC DATA ###
-t0 = 0
-#no = 101
-u0 = np.zeros([n])
-v0 = np.zeros([n])
-tf = 10
-#deltat = (tf - t0) / (n-1)
-deltat =0.1
-
-### DEFINING t-VALUES ###
-t = np.linspace(t0,tf,n)
+n_timepoints = 1500
+deltat = 0.01
 
 ### INITIALIZING ARRAY FOR p-VALUES ###
-u = np.zeros((n,tf))
-v = np.zeros((n,tf))
+u = np.zeros((n_nodes,n_timepoints))
+v = np.zeros((n_nodes,n_timepoints))
+
+u[:] = np.nan
+v[:] = np.nan
 
 ### FOR LOOP FOR EULER'S METHOD ###
-u[:, 0] = np.random.rand(n)
-v[:, 0] = np.random.rand(n)
+u[:, 0] = np.random.uniform(-1,1,size=n_nodes)
+v[:, 0] = np.random.uniform(-1,1,size=n_nodes)
 
-for i in range(1, tf):
-    u[:, i] = deltat * (-d_u * L * u[:, i-1] + a * u[:, i-1] +b * v[:, i-1]) + u[:, i-1]
-    v[:, i] = deltat * (-d_v * L * v[:, i-1] + a * u[:, i-1] +b * v[:, i-1]) + v[:, i-1]
+j = 0
+for i in range(1, n_timepoints):
 
-#for i in range(n): print(t[ i ] ,u[ i ])
+    u[:, i] = deltat * (-d_u * laplacian_matrix * u[:, i-1] + a * u[:, i-1] +b * v[:, i-1]) + u[:, i-1]
+    v[:, i] = deltat * (-d_v * laplacian_matrix * v[:, i-1] + a * u[:, i-1] +b * v[:, i-1]) + v[:, i-1]
 
-plt.figure(figsize=(16.0, 14.0))
-plt.plot(u.T, v.T, linestyle='--', marker='o', markersize=0.7, linewidth=0.2)
-plt.title(r'\textit{Variance of concetrations per single node - dt = 0.001}', size = 'xx-large')
-plt.gca().title.set_position([.5, 1.05])
-plt.xlabel(r'\textit{u}', size = 'xx-large')
-plt.ylabel(r'\textit{v}', size = 'xx-large')
+    if i % 50 == 0 :
+        plt.figure(figsize=(7,7))
 
-#plt.savefig('/Users/gulli/Google Drive/KURF/NodeEvo_001.png')
+        plt.plot(u.T, v.T, linewidth=2, color='r', alpha=0.2)
+        plt.plot(u[:,-1], v[:,-1], 'ko')
 
-plt.tight_layout()
-plt.show()
+        plt.xlim(-1,1)
+        plt.ylim(-1,1)
+
+        plt.xlabel(r'u', size = 16)
+        plt.ylabel(r'v', size = 16)
+
+        plt.title(r'state-space trajecotries $(u(t),v(t))$ per node', size = 16, y = 1.02)
+        plt.savefig(str(j).zfill(3)+'.png')
+
+        plt.close()
+        j += 1
+
+
