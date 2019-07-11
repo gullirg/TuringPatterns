@@ -1,18 +1,13 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Mon Jul  1 09:50:39 2019
 
-@author: gulli
-"""
+
+###
 # %matplotlib qt
 # %matplotlib inline
 import numpy as np
 from matplotlib import pyplot as plt
 import networkx as nx
 import matplotlib as mpl
-mpl.rcParams['text.usetex'] = True
-mpl.rcParams['text.latex.preamble'] = [r'\usepackage{amsmath}'] #for \text command
+
 
 ### NETWORK VARIABLES ###
 n=100 # nodes
@@ -23,8 +18,8 @@ a = 1
 b = -2
 c = 2
 d = -2
-d_u = 0.2
-d_v = 0.8
+d_u = 0.1
+d_v = 0.05
 
 I = np.identity(n)
 
@@ -34,7 +29,7 @@ u0 = np.zeros([n])
 v0 = np.zeros([n])
 tf = 500
 #deltat = (tf - t0) / (n-1)
-deltat = 1
+deltat = 0.1
 
 ### DEFINING t-VALUES ###
 t = np.linspace(t0,tf,n)
@@ -43,7 +38,7 @@ t = np.linspace(t0,tf,n)
 # =============================================================================
 # G=nx.gnm_random_graph(n,m)
 # =============================================================================
-G=nx.grid_graph(dim=[int(np.sqrt(n)) ,int(np.sqrt(n))], periodic=False)
+G=nx.grid_graph(dim=[int(np.sqrt(n)) ,int(np.sqrt(n))], periodic=False) 
 
 ### Laplacian matrix ###
 L = nx.laplacian_matrix(G)
@@ -82,9 +77,9 @@ pos = dict( (n, n) for n in G.nodes() )
 
 for k in range(tf):
     nx.draw(G, node_color = z[:, k], pos = pos, cmap= 'Blues', with_labels = False)
-    
-    plt.savefig('/Users/gulli/Google Drive/KURF/NetGif/Net_'+str(k) +'.png')
-    plt.show()
+    print(k)
+    plt.savefig('./Net_'+str(k) +'.png')
+    #plt.show()
 
 
 # =============================================================================
@@ -93,22 +88,3 @@ for k in range(tf):
 # nx.draw_networkx_labels(G, pos, labels = node_labels)
 # plt.show()
 # =============================================================================
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

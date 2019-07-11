@@ -6,8 +6,8 @@ import matplotlib.pyplot as plt
 
 
 ### NETWORK VARIABLES ###
-n=10 # nodes
-m=20 # edges
+n=100 # nodes
+m=200# edges
 
 ### REACTIVE FUNCTION VARIABLES ###
 a = 1
@@ -18,7 +18,7 @@ d = -2
 I = np.identity(n)
 
 ### GENERATE RANDOM GRAPH ###
-G=nx.gnm_random_graph(n,m)
+G=nx.grid_graph(dim=[int(np.sqrt(n)) ,int(np.sqrt(n))], periodic=False)
 
 ### CALCULATE EIGENVALUES OF LAPLACIAN (DIAGONALIZATION) ###
 w,v = np.linalg.eig(nx.laplacian_matrix(G).toarray())
@@ -27,12 +27,16 @@ w,v = np.linalg.eig(nx.laplacian_matrix(G).toarray())
 Lambda = np.diag(w)
 
 ### CALCULATE STABILITY FOR DIFFERENT DIFFUSIVITIES ###
+x_u= []
+y_v = []
 Phase_Plane = []
-
 for d_u in np.linspace(0,0.05,50):
+    x_u.append(d_u)
     temp = []
-
     for d_v in np.linspace(0,0.5,50):
+        y_v.append(d_v)
+
+
         
         ### REACTIVE LAPLACIAN ###
         A = a * I - d_u * Lambda
@@ -59,6 +63,14 @@ for d_u in np.linspace(0,0.05,50):
         
         value_norm = sum(check)/len(check) 
         temp.append(value_norm)
+        
+# ================================================BOOLEAN MATRIX GENERATOR=====
+#         if not check:
+#             temp.append(0)
+#             
+#         else:
+#             temp.append(1)
+# =============================================================================
             
     Phase_Plane.append(temp)
     
@@ -78,17 +90,5 @@ plt.gca().title.set_position([.5, 1.05])
 plt.xlabel(r'\textit{d\textsubscript{u}', size = 'xx-large')
 plt.ylabel(r'\textit{d\textsubscript{v}', size = 'xx-large')
 plt.tight_layout()
-plt.savefig('/Users/gulli/Google Drive/KURF/PhasePlane.png')
+#plt.savefig('/Users/gulli/Google Drive/KURF/PhasePlane.png')
 plt.show()
-
-
-
-
-
-
-
-
-
-
-
-
