@@ -4,8 +4,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 ### NETWORK VARIABLES ###
-n=100 # nodes
-m=200 # edges
+n=200 # nodes
 
 ### REACTIVE FUNCTION VARIABLES ### ###
 a = 1
@@ -15,7 +14,7 @@ d = -2
 
 I = np.identity(n)
 
-### GENERATE RANDOM GRAPH ###
+### GENERATE RING GRAPH ###
 graph = nx.watts_strogatz_graph(n, 2, 0)
 #graph = nx.grid_graph(dim=[int(np.sqrt(n)) ,int(np.sqrt(n))], periodic=False)
 
@@ -26,18 +25,12 @@ w,v = np.linalg.eig(nx.laplacian_matrix(graph).toarray())
 Lambda = np.diag(w)
 
 ### CALCULATE STABILITY FOR DIFFERENT DIFFUSIVITIES ###
-x_u= []
-y_v = []
 Phase_Plane = []
-t = 0
+#t = 0
 for d_u in np.linspace(0,0.05,50):
-    x_u.append(d_u)
     temp = []
+
     for d_v in np.linspace(0,0.5,50):
-        y_v.append(d_v)
-
-
-        
         ### REACTIVE LAPLACIAN ###
         A = a * I - d_u * Lambda
         B = b * I
@@ -74,14 +67,6 @@ for d_u in np.linspace(0,0.05,50):
         
         value_norm = sum(check)/len(check) 
         temp.append(value_norm)
-        
-# ================================================BOOLEAN MATRIX GENERATOR=====
-#         if not check:
-#             temp.append(0)
-#             
-#         else:
-#             temp.append(1)
-# =============================================================================
             
     Phase_Plane.append(temp)
     
@@ -89,8 +74,8 @@ for d_u in np.linspace(0,0.05,50):
 matrix = np.transpose(np.matrix(Phase_Plane))
 
 ### CONTOUR PLOT ###
-x = np.arange(0, 50, 1)
-y = np.arange(0, 50, 1)
+x = np.linspace(0,0.05,50)
+y = np.linspace(0,0.5,50)
 xx, yy = np.meshgrid(x, y, sparse=True)
 z = matrix
 
@@ -101,15 +86,6 @@ plt.gca().title.set_position([.5, 1.05])
 plt.xlabel(r'$d_u$', size = 16)
 plt.ylabel(r'$d_v$', size = 16)
 plt.tight_layout()
-plt.savefig('./PhasePlane.png')
+#plt.savefig('./PhasePlane.png')
 plt.show()
-
-
-
-
-
-
-
-
-
 

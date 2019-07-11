@@ -1,97 +1,72 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 """
-Created on Mon Jul  1 09:50:39 2019
+Generates 5x5(25) images of the final state of the RD process 
+on the ring network (after tf iterations). 
 
-@author: gulli
-"""
+Each image corresponds to a combination of diffusivity values (du & dv). 
+
+The images are saved in ./Documents/GitHub/TuringPatterns.
+ """
+
 # %matplotlib qt
 # %matplotlib inline
 import numpy as np
 from matplotlib import pyplot as plt
 import networkx as nx
 import matplotlib as mpl
-mpl.rcParams['text.usetex'] = True
-mpl.rcParams['text.latex.preamble'] = [r'\usepackage{amsmath}'] #for \text command
 
 ### NETWORK VARIABLES ###
-n=100 # nodes
+n=200 # nodes
 
 ### REACTIVE FUNCTION VARIABLES ###
 a = 1
 b = -1.7
 c = 1.9
 d = -2
-d_u = 0.7
-d_v = 0.1
+d_u = 0.006
+d_v = 0.125
 
-I = np.identity(n)
+for d_u in np.linspace(0,0.05/4,5):
+    for d_v in np.linspace(0,0.5/4,5):
 
-### DEFINING BASIC DATA ###
-t0 = 0
-u0 = np.zeros([n])
-v0 = np.zeros([n])
-tf = 100
-#deltat = (tf - t0) / (n-1)
-deltat = 0.1
+        ### DEFINING BASIC DATA ###
+        t0 = 0
+        tf = 4000
+        deltat = 0.01
 
-### DEFINING t-VALUES ###
-t = np.linspace(t0,tf,n)
+        ### DEFINING t-VALUES ###
+        t = np.linspace(t0,tf,n)
 
-### GENERATE RANDOM GRAPH ###
-# =============================================================================
-# G=nx.gnm_random_graph(n,m)
-# =============================================================================
-G=nx.watts_strogatz_graph(n, 2, 0)
+        ### GENERATE RING GRAPH ###
+        G=nx.watts_strogatz_graph(n, 2, 0)
 
-### Laplacian matrix ###
-L = nx.laplacian_matrix(G)
+        ### Laplacian matrix ###
+        L = nx.laplacian_matrix(G)
 
-### INITIALIZING ARRAY FOR p-VALUES ###
-u = np.zeros((n,tf))
-v = np.zeros((n,tf))
+        ### INITIALIZING ARRAY FOR p-VALUES ###
+        u = np.zeros((n,tf))
+        v = np.zeros((n,tf))
 
-### FOR LOOP FOR EULER'S METHOD ###
-u[:, 0] = np.random.rand(n)
-v[:, 0] = np.random.rand(n)
+        ### FOR LOOP FOR EULER'S METHOD ###
+        u[:, 0] = np.random.uniform(0,0.01,size = n)
+        v[:, 0] = np.random.uniform(0,0.01,size = n)
 
-for i in range(1, tf):
-    u[:, i] = deltat * (-d_u * L * u[:, i-1] + a * u[:, i-1] +b * v[:, i-1]) + u[:, i-1]
-    v[:, i] = deltat * (-d_v * L * v[:, i-1] + a * u[:, i-1] +b * v[:, i-1]) + v[:, i-1]
+        for i in range(1, tf):
+            u[:, i] = deltat * (-d_u * L * u[:, i-1] + a * u[:, i-1] +b * v[:, i-1]) + u[:, i-1]
+            v[:, i] = deltat * (-d_v * L * v[:, i-1] + a * u[:, i-1] +b * v[:, i-1]) + v[:, i-1]
 
 
+        ### CONCENTRATIONS DIFFERENCE ###
+        z = np.zeros((n,tf))
 
-### CONCENTRATIONS DIFFERENCE ###
-z = np.zeros((n,tf))
+        for m in range(tf):
+            z[:, m] = u[:, m] - v[:, m]
 
-for m in range(tf):
-    z[:, m] = u[:, m] - v[:, m]
+        ### GRAPH DRAWING ###
+        pos = nx.circular_layout(G)
 
-
-pos = nx.circular_layout(G)
-
-for k in range(tf):
-    nx.draw_networkx(G, node_color = z[:, k], pos = pos, cmap= 'Blues', with_labels = False)
-    
-    #plt.savefig('./Ring_'+str(k) +'.png')
-    plt.show()
-    print(k)
-
-
-### ASSIGN CONCENTRATIONS AS NODE ATTRIBUTES ###
-# =============================================================================
-# values = {}
-# 
-# for j in range(len(u[:, tf - 1])):
-#     #values[j] = u[:, 9][j] - v[:, 9][j]
-#     values[j] = z[:, 9][j]
-#    
-# nx.set_node_attributes(G, 'values', values)
-# =============================================================================
-
-# =============================================================================
-# nx.draw(G, pos)
-# node_labels = nx.get_node_attributes(G,'values')
-# nx.draw_networkx_labels(G, pos, labels = node_labels)
-# plt.show()
-# =============================================================================
+        ###
+        nx.draw_networkx(G, node_color = z[:, tf-1], pos = pos, cmap= plt.cm.coolwarm, with_labels = False, vmin=0, vmax=1)
+        sm = plt.cm.ScalarMappable(cmap = plt.cm.coolwarm, norm=plt.Normalize(vmin=0, vmax=1))
+        sm.set_array([])
+        #cbar = plt.colorbar(sm)
+        plt.savefig('./Ring_du='+str(round(d_u,3))+'-dv='+str(round(d_v,3))+'.png')
