@@ -12,25 +12,24 @@ from matplotlib import pyplot as plt
 import networkx as nx
 
 ### NETWORK VARIABLES ###
-n_nodes=1000
-m_edges=200 
+n_nodes=200
 
 ### REACTIVE FUNCTION VARIABLES ###
 a = 1
-b = -2
-c = 2
+b = -1.7
+c = 1.9
 d = -2
-d_u = 0.2
-d_v = 0.8
+d_u = 0.006
+d_v = 0.125
 
 ### GENERATE RANDOM GRAPH ###
-graphObject = nx.gnm_random_graph(n_nodes,m_edges)
+graphObject = nx.watts_strogatz_graph(n_nodes, 2, 0)
 
 ### Laplacian matrix ###
 laplacian_matrix = nx.laplacian_matrix(graphObject)
 
 ### DEFINING BASIC DATA ###
-n_timepoints = 1500
+n_timepoints = 4000
 deltat = 0.01
 
 ### INITIALIZING ARRAY FOR p-VALUES ###
@@ -41,8 +40,8 @@ u[:] = np.nan
 v[:] = np.nan
 
 ### FOR LOOP FOR EULER'S METHOD ###
-u[:, 0] = np.random.uniform(-1,1,size=n_nodes)
-v[:, 0] = np.random.uniform(-1,1,size=n_nodes)
+u[:, 0] = np.random.uniform(0,0.01,size = n_nodes)
+v[:, 0] = np.random.uniform(0,0.01,size = n_nodes)
 
 j = 0
 for i in range(1, n_timepoints):
@@ -50,14 +49,14 @@ for i in range(1, n_timepoints):
     u[:, i] = deltat * (-d_u * laplacian_matrix * u[:, i-1] + a * u[:, i-1] +b * v[:, i-1]) + u[:, i-1]
     v[:, i] = deltat * (-d_v * laplacian_matrix * v[:, i-1] + a * u[:, i-1] +b * v[:, i-1]) + v[:, i-1]
 
-    if i % 50 == 0 :
+    if i % 500 == 0 :
         plt.figure(figsize=(7,7))
 
-        plt.plot(u.T, v.T, linewidth=2, color='r', alpha=0.2)
-        plt.plot(u[:,-1], v[:,-1], 'ko')
+        plt.plot(u[:,i-100:i].T, v[:,i-100:i].T, linewidth=2, color='r', alpha=0.2)
+        plt.plot(u[:,i], v[:,i], 'ko')
 
-        plt.xlim(-1,1)
-        plt.ylim(-1,1)
+        # plt.xlim(-1,1)
+        # plt.ylim(-1,1)
 
         plt.xlabel(r'u', size = 16)
         plt.ylabel(r'v', size = 16)
