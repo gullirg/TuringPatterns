@@ -19,11 +19,9 @@ n=200 # nodes
 
 ### REACTIVE FUNCTION VARIABLES ###
 a = 1
-b = -1.7
-c = 1.9
+b = -2
+c = 2
 d = -2
-d_u = 0.006
-d_v = 0.125
 
 for d_u in np.linspace(0,0.05/4,5):
     for d_v in np.linspace(0,0.5/4,5):

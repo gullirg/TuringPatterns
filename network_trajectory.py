@@ -18,8 +18,8 @@ a = 1
 b = -2
 c = 2
 d = -2
-d_u = 0.1
-d_v = 0.05
+d_u = 0.01
+d_v = 0.5
 
 I = np.identity(n)
 
