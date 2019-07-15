@@ -56,3 +56,6 @@ for d_u in np.linspace(0,0.05,50):
         plt.clf()
 
 
+from os import system
+system('convert -delay 10 -loop 0 *.png eigenvalues_histogram.gif')
+system('rm *.png')
