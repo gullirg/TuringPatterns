@@ -45,10 +45,11 @@ for d_u in np.linspace(0,0.05,50):
         Gamma_eig = np.real(y)
         
         ### HISTOGRAM OF EIGENVALUES ###
-        plt.hist(Gamma_eig,bins=np.linspace(Gamma_eig.min(), Gamma_eig.max()+1, len(Gamma_eig)),histtype='step')
-        plt.ylim(0, 200)
+        plt.hist(Gamma_eig, bins=np.linspace(Gamma_eig.min(), Gamma_eig.max()+1, len(Gamma_eig)*10),histtype='step')
+        #plt.ylim(0, 200)
         plt.xlim(-3.5, 1)
-        plt.title('Eigenvalue distribution of reactive Laplacian $\Gamma$ - $d_u =$' + str(round(d_u,3)) + ' & $d_v =$' + str(round(d_v,3)))
+        plt.yscale('log', nonposy='clip')
+        plt.title(r'Eigenvalue distribution of reactive Laplacian $\Gamma$ - $d_u =$' + str(round(d_u,3)) + ' & $d_v =$' + str(round(d_v,3)))
         plt.ylabel('Number of Eigenvalues')
         plt.xlabel('Eigenvalue')
         plt.savefig('./Gamma_eig_'+str(t)+'.png')
