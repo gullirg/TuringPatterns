@@ -1,10 +1,8 @@
 import networkx as nx
 import numpy as np
 import matplotlib.pyplot as plt
-import seaborn as sns
 
-### NETWORK VARIABLES ###
-n=200 # nodes
+from argparse import ArgumentParser
 
 ### REACTIVE FUNCTION VARIABLES ### ###
 a = 1
@@ -26,9 +24,9 @@ Lambda = np.diag(w)
 
 ### CALCULATE STABILITY FOR DIFFERENT DIFFUSIVITIES ###
 t = 0
-for d_u in np.linspace(0,0.05,50):
+for d_u in np.linspace(0,0.05,10):
 
-    for d_v in np.linspace(0,0.5,50):
+    for d_v in np.linspace(0,0.5,10):
         ### REACTIVE LAPLACIAN ###
         A = a * I - d_u * Lambda
         B = b * I
@@ -60,3 +58,17 @@ for d_u in np.linspace(0,0.05,50):
 from os import system
 system('convert -delay 10 -loop 0 *.png eigenvalues_histogram.gif')
 system('rm *.png')
+
+### ARGUMENT PARSER ###
+def get_args() :
+    '''parse arguments from command line'''
+    parser = ArgumentParser()
+
+    parser.add_argument('--n', help = 'number of nodes', type = int, default = 200)
+
+    return vars(parser.parse_args())
+
+# execute main program
+if __name__ == '__main__' :
+    args = get_args()
+    main(**args)
