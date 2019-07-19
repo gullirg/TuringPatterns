@@ -71,14 +71,23 @@ def generate_gif(graph_type = 'ring', nodes = 1000, a = 1, b = -1.7, c = 1.9, d 
 
 def generate_figure(Gamma_eig, du, dv, a, b, c, d):
         '''main program figure display'''
-
+        
+        if a+d<0 :
+                if a*d-b*c>0 :
+                        message = 'JACOBIAN OBEYS CONDITIONS'
+                elif a*d-b*c<0:
+                        message = 'JACOBIAN DOES NOT OBEY CONDITIONS'
+        else:
+                message = 'JACOBIAN DOES NOT OBEY CONDITIONS'
+        
         ### HISTOGRAM OF EIGENVALUES ###
         plt.hist(Gamma_eig, bins= 100,histtype='step')
         #plt.ylim(0, 200)
         plt.xlim(-3.5, 1)
         plt.yscale('log', nonposy='clip')
         plt.title(r'Eigenvalue distribution of reactive Laplacian $\Gamma$ - $d_u =$' + str(round(du,3)) + ' & $d_v =$' + str(round(dv,3))
-                        + '\n a=' + str(round(a,3)) + ' & b=' +str(round(b,3)) + ' & c=' + str(round(c,3)) + ' & d=' +str(round(d,3)) )
+                        + '\n a=' + str(round(a,3)) + ' & b=' +str(round(b,3)) + ' & c=' + str(round(c,3)) + ' & d=' +str(round(d,3)) 
+                        + '\n ' + message)
         plt.ylabel('Number of Eigenvalues')
         plt.xlabel('Eigenvalue')
         plt.savefig("./image.png")
