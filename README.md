@@ -1,6 +1,6 @@
 # TuringPatterns
 
-## Eigenvalue's Histogram GUI
+## Eigenvalues Histogram GUI
 The script [gui.py](https://github.com/gullirg/TuringPatterns/blob/6-optimise-code/gui.py), 
 with the support of [eigens.py](https://github.com/gullirg/TuringPatterns/blob/6-optimise-code/eigens.py), 
 generates a GUI interface 
@@ -25,3 +25,21 @@ The values for the Jacobian {a,b,c,d} that respect the conditions
 can be found using 
 [conditions.py](https://github.com/gullirg/TuringPatterns/blob/6-optimise-code/conditions.py)
 which creates a .txt file with possible conditions.
+
+## Eigenvalues Histogram Argument Parser
+The script [eigenvalues_histogram.py](https://github.com/gullirg/TuringPatterns/blob/6-optimise-code/eigenvalues_histogram.py) generates the reactive Laplacian's eigenvalues histogram, with the following optional arguments.
+
+```
+optional arguments:
+  -h, --help            show this help message and exit
+  --graph_type [GRAPH_TYPE]
+                        graph type ['ring' or 'random'] - default = 'ring'
+  --nodes [NODES]       number of nodes - default = 1000
+  --a [A]               entry 'a' of jacobian matrix - default = 1
+  --b [B]               entry 'b' of jacobian matrix - default = -1.7
+  --c [C]               entry 'c' of jacobian matrix - default = 1.9
+  --d [D]               entry 'd' of jacobian matrix - default = -2
+  --du [DU]             du value - default = 0.05
+  --dv [DV]             dv value - default = 0.5
+  
+ ```
