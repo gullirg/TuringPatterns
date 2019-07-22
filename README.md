@@ -45,6 +45,11 @@ optional arguments:
   
  ```
 
+The following plot is generated using the default arguments:
+
+![image](https://github.com/gullirg/TuringPatterns/blob/6-optimise-code/Gamma_eig_du%3D0.05dv%3D0.5.png)
+
+
 ## Ring Network Evolution GIF
 The script [network_trajectory_live.py](https://github.com/gullirg/TuringPatterns/blob/6-optimise-code/ring_network_trajectory_live.py) 
 generates a GIF showing the live evolution of the RD system on the network.
