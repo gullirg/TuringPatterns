@@ -17,3 +17,11 @@ python gui.py
 This is the GUI interface:
 
 ![image](gui_example.png)
+
+The values for the Jacobian {a,b,c,d} that respect the conditions 
+- Tr(J)<0 
+- det(J)>0   
+
+can be found using 
+[conditions.py](https://github.com/gullirg/TuringPatterns/blob/6-optimise-code/conditions.py)
+which creates a .txt file with possible conditions.
