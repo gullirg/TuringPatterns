@@ -70,3 +70,10 @@ generate a plot for the stable-unstable regions of the homogenous steady state.
 The following plot has been produced using [ring_bifurcations.py](https://github.com/gullirg/TuringPatterns/blob/6-optimise-code/ring_bifurcations.py):
 
 ![image](https://github.com/gullirg/TuringPatterns/blob/6-optimise-code/PhasePlane.png)
+
+## Built With
+[NetworkX](https://networkx.github.io/documentation/stable/) - the package used for generating and analysing networks.
+[Tkinter](https://docs.python.org/2/library/tkinter.html#module-Tkinter) - the standard Python interface to the Tk GUI toolkit.
+
+## Authors
+*Guglielmo Reggio* - [gullirg](https://github.com/gullirg)
