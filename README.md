@@ -43,3 +43,9 @@ optional arguments:
   --dv [DV]             dv value - default = 0.5
   
  ```
+
+## Ring Network Evolution GIF
+The script [network_trajectory_live.py](https://github.com/gullirg/TuringPatterns/blob/6-optimise-code/ring_network_trajectory_live.py) 
+generates a GIF showing the live evolution of the RD system on the network.
+
+![image](https://github.com/gullirg/TuringPatterns/blob/6-optimise-code/network_evo_example.gif)
