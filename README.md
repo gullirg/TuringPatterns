@@ -49,3 +49,9 @@ The script [network_trajectory_live.py](https://github.com/gullirg/TuringPattern
 generates a GIF showing the live evolution of the RD system on the network.
 
 ![image](https://github.com/gullirg/TuringPatterns/blob/6-optimise-code/network_evo_example.gif)
+
+## State Space Trajectory
+The script [state_space_trajectory.py](https://github.com/gullirg/TuringPatterns/blob/6-optimise-code/state_space_trajectory.py)
+generates a plot of the two substances concentrantions (u & v) for each node in the network.
+
+![image](https://github.com/gullirg/TuringPatterns/blob/6-optimise-code/state_space.gif)
