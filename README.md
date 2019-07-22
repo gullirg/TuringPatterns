@@ -55,3 +55,12 @@ The script [state_space_trajectory.py](https://github.com/gullirg/TuringPatterns
 generates a plot of the two substances concentrantions (u & v) for each node in the network.
 
 ![image](https://github.com/gullirg/TuringPatterns/blob/6-optimise-code/state_space.gif)
+
+## Bifurcation Curve
+The scripts [bifurcations.py](https://github.com/gullirg/TuringPatterns/blob/6-optimise-code/bifurcations.py),
+[grid_bifurcations.py](https://github.com/gullirg/TuringPatterns/blob/6-optimise-code/grid_bifurcations.py),
+[ring_bifurcations.py](https://github.com/gullirg/TuringPatterns/blob/6-optimise-code/ring_bifurcations.py),
+generate a plot for the stable-unstable regions of the homogenous steady state.  
+The following plot has been produced using [ring_bifurcations.py](https://github.com/gullirg/TuringPatterns/blob/6-optimise-code/ring_bifurcations.py):
+
+![image](https://github.com/gullirg/TuringPatterns/blob/6-optimise-code/PhasePlane.png)
