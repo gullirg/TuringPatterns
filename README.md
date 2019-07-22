@@ -76,4 +76,4 @@ The following plot has been produced using [ring_bifurcations.py](https://github
 [Tkinter](https://docs.python.org/2/library/tkinter.html#module-Tkinter) - the standard Python interface to the Tk GUI toolkit.
 
 ## Authors
-*Guglielmo Reggio* - [gullirg](https://github.com/gullirg)
+**Guglielmo Reggio** - [gullirg](https://github.com/gullirg)
