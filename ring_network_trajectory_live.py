@@ -1,7 +1,6 @@
 """
 Shows the live evolution of the RD system on the network.
-
-To display on the Python Interactive cell click 'Run Cell' at the top or bottom of the code. 
+ 
 """
 
 import numpy as np
@@ -12,12 +11,12 @@ import networkx as nx
 n=200 # nodes
 
 ### REACTIVE FUNCTION VARIABLES ###
-a = 1
-b = -2
-c = 2
-d = -2
-d_u = 0.1
-d_v = 0.96
+a = 0.5
+b = 1
+c = -1
+d = -1
+d_u = 0.01
+d_v = 0.3
 
 ### DEFINING BASIC DATA ###
 t0 = 0

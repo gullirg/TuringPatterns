@@ -7,10 +7,10 @@ import seaborn as sns
 n=200 # nodes
 
 ### REACTIVE FUNCTION VARIABLES ### ###
-a = 1
-b = -1.7
-c = 1.9
-d = -2
+a = 0.5
+b = -1
+c = 1
+d = -1
 
 I = np.identity(n)
 
@@ -74,6 +74,6 @@ plt.gca().title.set_position([.5, 1.05])
 plt.xlabel(r'$d_u$', size = 16)
 plt.ylabel(r'$d_v$', size = 16)
 plt.tight_layout()
-#plt.savefig('./PhasePlane.png')
+plt.savefig('./PhasePlane2.png')
 plt.show()
 

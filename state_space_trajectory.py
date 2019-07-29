@@ -15,12 +15,12 @@ import networkx as nx
 n_nodes=200
 
 ### REACTIVE FUNCTION VARIABLES ###
-a = 1
-b = -1.7
-c = 1.9
-d = -2
-d_u = 0.006
-d_v = 0.125
+a = 0.5
+b = -1
+c = 1
+d = -1
+d_u = 0.01
+d_v = 0.4
 
 ### GENERATE RANDOM GRAPH ###
 graphObject = nx.watts_strogatz_graph(n_nodes, 2, 0)
@@ -29,7 +29,7 @@ graphObject = nx.watts_strogatz_graph(n_nodes, 2, 0)
 laplacian_matrix = nx.laplacian_matrix(graphObject)
 
 ### DEFINING BASIC DATA ###
-n_timepoints = 4000
+n_timepoints = 8000
 deltat = 0.01
 
 ### INITIALIZING ARRAY FOR p-VALUES ###
