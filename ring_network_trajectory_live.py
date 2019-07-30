@@ -12,8 +12,8 @@ n=200 # nodes
 
 ### REACTIVE FUNCTION VARIABLES ###
 a = 0.5
-b = 1
-c = -1
+b = -1
+c = 1
 d = -1
 d_u = 0.01
 d_v = 0.3
