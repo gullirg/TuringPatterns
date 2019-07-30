@@ -6,8 +6,7 @@ import matplotlib.pyplot as plt
 
 
 ### NETWORK VARIABLES ###
-n=10 # nodes
-m=20 # edges
+n=500 # nodes
 
 ### REACTIVE FUNCTION VARIABLES ###
 a = 1
@@ -18,7 +17,7 @@ d = -2
 I = np.identity(n)
 
 ### GENERATE RANDOM GRAPH ###
-G=nx.gnm_random_graph(n,m)
+G=nx.nx.erdos_renyi_graph(n, 0.1)
 
 ### CALCULATE EIGENVALUES OF LAPLACIAN (DIAGONALIZATION) ###
 w,v = np.linalg.eig(nx.laplacian_matrix(G).toarray())
@@ -78,7 +77,7 @@ plt.gca().title.set_position([.5, 1.05])
 plt.xlabel(r'\textit{d\textsubscript{u}', size = 'xx-large')
 plt.ylabel(r'\textit{d\textsubscript{v}', size = 'xx-large')
 plt.tight_layout()
-plt.savefig('/Users/gulli/Google Drive/KURF/PhasePlane.png')
+plt.savefig('./PhasePlane_ER.png')
 plt.show()
 
 

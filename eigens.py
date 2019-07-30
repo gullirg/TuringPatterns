@@ -71,7 +71,7 @@ def generate_gif(graph_type = 'ring', nodes = 1000, a = 1, b = -1.7, c = 1.9, d 
 
 def generate_figure(Gamma_eig, du, dv, a, b, c, d, graph_type):
         '''main program figure display'''
-        
+
         if a+d<0 :
                 if a*d-b*c>0 :
                         message = 'JACOBIAN OBEYS CONDITIONS'
@@ -83,7 +83,6 @@ def generate_figure(Gamma_eig, du, dv, a, b, c, d, graph_type):
         ### HISTOGRAM OF EIGENVALUES ###
         plt.hist(Gamma_eig, bins= 100,histtype='step')
         #plt.ylim(0, 200)
-        
         plt.xlim(-8, 1)
         plt.yscale('log', nonposy='clip')
         plt.title(r'Eigenvalue distribution of reactive Laplacian $\Gamma$ - $d_u =$' + str(round(du,3)) + ' & $d_v =$' + str(round(dv,3))

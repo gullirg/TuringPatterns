@@ -82,12 +82,4 @@ variable.set("ring") # default value
 w7 = OptionMenu(root, variable, "ring", "random")
 w7.pack(side = BOTTOM)
 
-T1 = Text(root, height=2, width=13)
-T1.pack(side = LEFT)
-T1.insert(1.0, "DIFFUSIVITIES")
-
-T2 = Text(root, height=2, width=10)
-T2.pack(side = RIGHT)
-T2.insert(1.0, "JACOBIAN \nENTRIES")
-
 mainloop()
