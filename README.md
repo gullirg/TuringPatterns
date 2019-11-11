@@ -1,6 +1,8 @@
 # TuringPatterns
 Computationally investigating robustness of patterns in reaction-diffusion systems on complex networks.
 
+![image](Poster.png)
+
 ## Eigenvalues Histogram GUI
 The script [gui.py](https://github.com/gullirg/TuringPatterns/blob/6-optimise-code/gui.py), 
 with the support of [eigens.py](https://github.com/gullirg/TuringPatterns/blob/6-optimise-code/eigens.py), 
